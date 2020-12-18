@@ -1,8 +1,8 @@
-import passport, { use, serializeUser, deserializeUser } from 'passport';
+import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
-import { User, validatePassword } from '../models/models';
+import { User, validatePassword } from '../models/model';
 
-use(new LocalStrategy((username, password, done) => {
+passport.use(new LocalStrategy((username, password, done) => {
     User.findOne({
         where: {
             username: username
@@ -23,11 +23,11 @@ use(new LocalStrategy((username, password, done) => {
 }
 ));
 
-serializeUser((user, done) => {
+passport.serializeUser((user, done) => {
     done(null, user.id);
 });
 
-deserializeUser((id, done) => {
+passport.deserializeUser((id, done) => {
     User.findOne({
         where: {
             id: id

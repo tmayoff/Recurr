@@ -1,0 +1,71 @@
+extends ../layout
+
+block content
+    //- TODO Add Hero section
+
+    .is-flex.is-justify-content-center
+        .card
+            .card-header
+                .card-header-title Register
+            .card-content
+                form(action="register" method="POST")
+
+                    //- First name
+                    .field
+                        label.label First Name
+                        .control.has-icons-left.has-icons-right
+                            if (errors.firstname)
+                                input.input.is-danger(name="firstname" required)
+                                span.icon.is-small.is-right
+                                    i.fas.fa-exclamation-triangle
+                            else
+                                input.input(name="firstname" required)
+                            span.icon.is-small.is-left
+                                i.fas.fa-user
+                        .help.is-danger= errors.firstname
+
+                    //- Last name
+                    .field
+                        label.label Last Name
+                        .control.has-icons-left.has-icons-right
+                            if (errors.lastname)
+                                input.input.is-danger(name="lastname" required)
+                                span.icon.is-small.is-right
+                                    i.fas.fa-exclamation-triangle
+                            else
+                                input.input(name="lastname" required)
+
+                            span.icon.is-small.is-left
+                                i.fas.fa-user
+                        .help.is-danger= errors.lastname
+
+                    .field
+                        label.label Email
+                        .control.has-icons-left.has-icons-right
+                            if (errors.email)
+                                input.input.is-danger(type="email" name="email" required)
+                                span.icon.is-small.is-right
+                                    i.fas.fa-exclamation-triangle
+                            else
+                                input.input(type="email" name="email" required)
+
+                            span.icon.is-small.is-left
+                                i.fas.fa-envelope
+                        .help.is-danger= errors.email
+                    .field
+                        label.label Password
+                        .control.has-icons-left.has-icons-right
+                            if (errors.password)
+                                input.input.is-danger(type="password" name="password" required)
+                                span.icon.is-small.is-right
+                                    i.fas.fa-exclamation-triangle
+                            else
+                                input.input(type="password" name="password" required)
+                            span.icon.is-small.is-left
+                                i.fas.fa-lock
+                        .help.is-danger= errors.password
+                    .field.is-grouped
+                        .control
+                            button(type="submit").button.is-link Register
+                        .control
+                            a(href="/login").button.is-link.is-light Login

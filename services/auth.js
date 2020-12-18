@@ -6,4 +6,4 @@ function isAuthenticated(req, res, next) {
     res.redirect('/users/login');
 }
 
-export { isAuthenticated };
+module.exports.isAuthenticated = isAuthenticated;

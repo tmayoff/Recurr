@@ -1,7 +1,10 @@
 doctype html
 html
   head
-    title= Recurr
+    if (subtitle)
+      title= "Recurr | " + subtitle
+    else 
+      title Recurr
     link(rel='stylesheet', href='/stylesheets/style.css')
     script(defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js")
   body

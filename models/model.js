@@ -1,6 +1,6 @@
 import { Sequelize, Model, Datatypes } from 'sequelize';
 import { randomBytes, pbkdf2Sync } from 'crypto';
-import { sync } from '../services/sequelize';
+import sequelize from '../services/sequelize';
 
 var months = ["Jan.", "Feb", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 var days = ["Sun.", "Mon.", "Tue.", "Wed.", "Thu.", "Fri.", "Sat."]
@@ -39,7 +39,8 @@ User.init({
         defaultValue: Sequelize.UUIDV4,
         primaryKey: true
     },
-    username: Sequelize.STRING,
+    firstname: Sequelize.STRING,
+    lastname: Sequelize.STRING,
     email: Sequelize.STRING,
     verified: Sequelize.BOOLEAN,
     hash: Sequelize.STRING(512),
@@ -51,7 +52,7 @@ User.init({
     }
 }, {
     sequelize,
-    modelName: "User"
+    modelName: "user"
 });
 
 function hashPassword(password) {
@@ -76,6 +77,6 @@ function validatePassword(user, password) {
     return user.hash == hash;
 }
 
-sync({ alter: true });
+sequelize.sync({ alter: true });
 
 export { User, hashPassword, validatePassword };

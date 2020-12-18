@@ -1,16 +1,16 @@
-version: '3.1'
+version: "3.1"
 
 services:
   db:
     image: mariadb
     restart: always
-    network_mode: host
     ports:
       - 3306:3306
     environment:
       MYSQL_USER: recurr_test
       MYSQL_PASSWORD: testing
       MYSQL_ROOT_PASSWORD: root_test
+      MYSQL_DATABASE: recurr
   phpmyadmin:
     image: phpmyadmin
     restart: always
