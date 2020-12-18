@@ -1,0 +1,41 @@
+extends layout
+
+block content
+    //- TODO Add Hero section
+
+    .is-flex.is-justify-content-center
+        .card
+            .card-header
+                .card-header-title Login
+            .card-content
+                form(action="login" method="POST")
+                    .field
+                        label.label Email
+                        .control.has-icons-left.has-icons-right
+                            if (email)
+                                input.input.is-danger(type="email" name="email")
+                                span.icon.is-small.is-right
+                                    i.fas.fa-exclamation-triangle
+                            else
+                                input.input(type="email" name="email")
+
+                            span.icon.is-small.is-left
+                                i.fas.fa-envelope
+                        .help.is-danger= email
+                    .field
+                        label.label Password
+                        .control.has-icons-left.has-icons-right
+                            if (password)
+                                input.input.is-danger(type="password" name="password")
+                                span.icon.is-small.is-right
+                                    i.fas.fa-exclamation-triangle
+                            else
+                                input.input(type="password" name="password")
+                            span.icon.is-small.is-left
+                                i.fas.fa-key
+                        .help.is-danger= password
+                    .field.is-grouped
+                        .control
+                            button(type="submit").button.is-link Login
+                        .control
+                            a(href="/").button.is-link.is-light Register
