@@ -1,7 +1,13 @@
 doctype html
 html
   head
-    title= title
+    title= Recurr
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
-    block content
+    nav.navbar.is-primary.mb-4(role="navigation" aria-label="main navigation")
+      .navbar-brand
+        a.navbar-item(href="/")
+          .is-size-3 Recurr
+
+    .container 
+      block content
