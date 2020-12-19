@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "build": "rimraf build/ && babel ./ --out-dir build/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
     "start": "nodemon --ignore ./public --exec babel-node ./bin/www",
+    "dev": "nodemon --ignore ./public --exec babel-node ./bin/www",
     "css-build": "node-sass --omit-source-map-url sass/style.scss public/stylesheets/style.css",
     "css-watch": "npm run css-build -- --watch"
   },
@@ -29,5 +31,10 @@
     "pug": "^2.0.4",
     "sequelize": "^6.3.5",
     "tunnel-ssh": "^4.1.4"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.12.10",
+    "nodemon": "^2.0.6",
+    "rimraf": "^3.0.2"
   }
 }
