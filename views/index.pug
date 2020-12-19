@@ -16,29 +16,55 @@ block content
       .card
         .card-content
           button.button.is-success#new-modal New
-          table.table
+          table.table.is-stripped.is-hoverable.is-fullwidth
             thead.thead
+              tr
+                th Name
+                th Price
+                th Cycle
             tbody.tbody
+              each p in list
+                tr
+                  td= p.name
+                  td= "$" + p.price
+                  td= p.cycletype
 
-  .modal.is-active
+
+  .modal
     .modal-background
     .modal-card
       header.modal-card-head
         .modal-card-title New Recurring Payment
       section.modal-card-body
-        form()
+        form(action="/api/recur/new" method="POST")
+          input.is-hidden(name="redirectUrl", value="/")
           .field.is-horizontal
             .field-label.is-normal
               label.label Name
-            .field-body.is-grouped
+            .field-body
               .control
-                input.input()
-              .control.has-icons-right
-                input.input
-          .field
-            label.label Due Next
-            .control
-              input.input(type="date")
+                input.input(name="name" required)
+          .field.is-horizontal
+            .field-label.is-normal
+              label.label Price
+            .field-body
+              .control
+                input.input(name="price" type="number" min="0" step="0.01" required)
+          .field.is-horizontal
+            .field-label.is-normal
+              label.label Due Next
+            .field-body
+              .control
+                input.input(name="date" type="date" required)
+          .field.is-horizontal
+            .field-label.is-normal
+              label.label Cycle
+            .field-body
+              .control
+                .select
+                  select(name="cycle_type")
+                    option Yearly
+                    option Monthly
+                    option Weekly
           .field.is-pulled-right
             button.button.is-info Add
-

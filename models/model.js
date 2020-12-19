@@ -40,11 +40,13 @@ RecurPay.init({
         primaryKey: true
     },
     name: Sequelize.STRING,
+    normalized_name: Sequelize.STRING,
     dueday: Sequelize.INTEGER,
-    duetype: Sequelize.STRING
+    price: Sequelize.DOUBLE,
+    cycletype: Sequelize.STRING
 }, {
     sequelize,
-    modelName: 'recurring_payment'
+    modelName: 'recurring_payments'
 });
 
 // ---- Users ----- //
@@ -93,6 +95,8 @@ function validatePassword(user, password) {
     return user.hash == hash;
 }
 
+User.hasMany(RecurPay);
+
 sequelize.sync({ alter: true });
 
-export { User, hashPassword, validatePassword };
+export { User, RecurPay, hashPassword, validatePassword };

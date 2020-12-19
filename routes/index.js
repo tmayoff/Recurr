@@ -1,14 +1,20 @@
 const auth = require('../services/auth');
 import passport from '../services/passport';
 import { Router } from 'express';
-import { User, hashPassword } from '../models/model';
+import { User, RecurPay, hashPassword } from '../models/model';
 
 var router = Router();
 
 /* GET home page. */
 router.get('/', auth.isAuthenticated, (req, res, next) => {
 
-  res.render('index');
+  RecurPay.findAll({
+    where: {
+      userId: req.user.id
+    }
+  }).then(list => {
+    res.render('index', { user: req.user, list });
+  });
 });
 
 router.get('/register', (req, res, next) => {
