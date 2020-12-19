@@ -10,8 +10,8 @@ var passport = require('passport')
 var sequelize = require('./services/sequelize');
 const helpers = require('./helpers/helpers');
 
-var indexRouter = require('./routes/index').default;
-var apiRouter = require('./routes/api').default;
+var indexRouter = require('./routes/index');
+var apiRouter = require('./routes/api');
 var usersRouter = require('./routes/users');
 
 var app = express();

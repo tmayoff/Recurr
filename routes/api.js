@@ -1,8 +1,7 @@
-import passport from '../services/passport';
-import { Router } from 'express';
-import { RecurPay, formatDate } from '../models/model';
+const express = require('express');
+const RecurPay = require('../models/model').RecurPay;
 const auth = require('../services/auth');
-const router = Router();
+const router = express.Router();
 
 router.post('/recur/new', auth.isAuthenticated, (req, res, next) => {
     var day = 0;
@@ -82,4 +81,4 @@ router.get('/recur/delete/:id', auth.isAuthenticated, (req, res, next) => {
     }).catch(err => next(err));
 });
 
-export default router;
+module.exports = router;

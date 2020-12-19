@@ -1,6 +1,6 @@
-import { Sequelize, Model, Datatypes } from 'sequelize';
-import { randomBytes, pbkdf2Sync } from 'crypto';
-import sequelize from '../services/sequelize';
+const { Sequelize, Model, Datatypes } = require('sequelize');
+const { randomBytes, pbkdf2Sync } = require('crypto');
+const sequelize = require('../services/sequelize');
 
 var months = ["Jan.", "Feb", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 var days = ["Sun.", "Mon.", "Tue.", "Wed.", "Thu.", "Fri.", "Sat."]
@@ -100,4 +100,8 @@ User.hasMany(RecurPay);
 
 sequelize.sync({ alter: true });
 
-export { User, formateDate, RecurPay, hashPassword, validatePassword };
+module.exports.User = User;
+module.exports.formateDate = formateDate;
+module.exports.RecurPay = RecurPay;
+module.exports.hashPassword = hashPassword;
+module.exports.validatePassword = validatePassword;

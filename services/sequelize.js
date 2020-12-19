@@ -1,5 +1,5 @@
-import { Sequelize } from 'sequelize';
-import tunnel from 'tunnel-ssh';
+const Sequelize = require('sequelize');
+const tunnel = require('tunnel-ssh');
 
 const sequelize = new Sequelize({
     dialect: 'mariadb',
@@ -55,4 +55,4 @@ if (process.env.SSH_HOST) {
         });
 }
 
-export default sequelize;
+module.exports = sequelize;
