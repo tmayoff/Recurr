@@ -28,6 +28,9 @@ jobs:
         
       - name: Build
         run: npm build
+      
+      - name: Test
+        run: ls -la
 
       # Deploys to FTP
       #- name: FTP Deploy
