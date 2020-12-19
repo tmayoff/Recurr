@@ -28,7 +28,6 @@ jobs:
         uses: SamKirkland/FTP-Deploy-Action@4.0.0
         with:
            server: ftp.tylermayoff.com
-           state-name: recurr/ftp-state.json
            server-dir: recurr/
            username: ${{ secrets.FTP_USERNAME }} 
            password: ${{ secrets.FTP_PASSWORD }}
