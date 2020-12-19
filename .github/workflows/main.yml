@@ -22,12 +22,15 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+      
+      - name: Run a yarn or npm command
+        run: npm install --only=dev
 
-      # Runs a single command using the runners shell
-      - name: FTP Deploy
-        uses: SamKirkland/FTP-Deploy-Action@4.0.0
-        with:
-          server: ftp.tylermayoff.com
-          server-dir: /recurr/
-          username: ${{ secrets.FTP_USERNAME }} 
-          password: ${{ secrets.FTP_PASSWORD }}
+      # Deploys to FTP
+      #- name: FTP Deploy
+       # uses: SamKirkland/FTP-Deploy-Action@4.0.0
+       # with:
+        #  server: ftp.tylermayoff.com
+        #  server-dir: /recurr/
+        #  username: ${{ secrets.FTP_USERNAME }} 
+        #  password: ${{ secrets.FTP_PASSWORD }}
