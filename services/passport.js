@@ -1,12 +1,12 @@
-import passport from 'passport';
-import { Strategy as LocalStrategy } from 'passport-local';
-import { User, validatePassword } from '../models/model';
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const Model = require('../models/model');
 
 passport.use(new LocalStrategy({
     usernameField: 'email',
     passwordField: 'password'
 }, (email, password, done) => {
-    User.findOne({
+    Model.User.findOne({
         where: {
             email: email
         }
@@ -15,7 +15,7 @@ passport.use(new LocalStrategy({
             return done(null, false, { message: "Username or password is invalid" });
         }
 
-        if (validatePassword(user, password)) {
+        if (Model.validatePassword(user, password)) {
             return done(null, user);
         } else {
             return done(null, false, { message: "Username or password is invalid" });
@@ -30,7 +30,7 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((id, done) => {
-    User.findOne({
+    Model.User.findOne({
         where: {
             id: id
         }
@@ -41,4 +41,4 @@ passport.deserializeUser((id, done) => {
     });
 });
 
-export default passport;
+module.exports = passport;

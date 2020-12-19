@@ -17,22 +17,8 @@ function getDateFromDayAndCycleType(day, cycletype) {
         default:
             break;
     }
-
-    // if (date < now) {
-    //     switch (cycletype) {
-    //         case "Monthly":
-    //             date = new Date(date.setMonth(date.getMonth() + 1));
-    //             break;
-    //         case "Yearly":
-    //             date = new Date(date.setFullYear(date.getFullYear() + 1));
-    //             break;
-    //         // TODO Add weekly
-    //         default:
-    //             break;
-    //     }
-    // }
     console.log(day + " " + cycletype);
     return date;
 }
 
-export { getDateFromDayAndCycleType }
+exports.getDateFromDayAndCycleType;

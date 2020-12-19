@@ -1,9 +1,9 @@
 const auth = require('../services/auth');
-import passport from '../services/passport';
-import { Router } from 'express';
-import { User, RecurPay, hashPassword } from '../models/model';
+const passport = require('../services/passport');
+const express = require('express');
+const { User, RecurPay, hashPassword } = require('../models/model');
 
-var router = Router();
+var router = express.Router();
 
 /* GET home page. */
 router.get('/', auth.isAuthenticated, (req, res, next) => {
@@ -83,4 +83,4 @@ router.post('/login', passport.authenticate('local', {
 
 });
 
-export default router;
+module.exports = router;
