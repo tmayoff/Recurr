@@ -27,16 +27,17 @@ jobs:
         run: npm install --only=dev
         
       - name: Build
-        run: npm build
+        run: npm run build
       
       - name: Test
         run: ls -la
 
       # Deploys to FTP
-      #- name: FTP Deploy
-       # uses: SamKirkland/FTP-Deploy-Action@4.0.0
-       # with:
-        #  server: ftp.tylermayoff.com
-        #  server-dir: /recurr/
-        #  username: ${{ secrets.FTP_USERNAME }} 
-        #  password: ${{ secrets.FTP_PASSWORD }}
+      - name: FTP Deploy
+        uses: SamKirkland/FTP-Deploy-Action@4.0.0
+        with:
+           server: ftp.tylermayoff.com
+           local-dir: build/
+           server-dir: /recurr/
+           username: ${{ secrets.FTP_USERNAME }} 
+           password: ${{ secrets.FTP_PASSWORD }}
