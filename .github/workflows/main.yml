@@ -27,7 +27,7 @@ jobs:
       - name: FTP Deploy
         uses: SamKirkland/FTP-Deploy-Action@4.0.0
         with:
-          server: ftp://ftp.tylermayoff.com
+          server: ftp.tylermayoff.com
           server-dir: /recurr/
           username: ${{ secrets.FTP_USERNAME }} 
           password: ${{ secrets.FTP_PASSWORD }}
