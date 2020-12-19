@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon --exec babel-node ./bin/www",
+    "start": "nodemon --ignore ./public --exec babel-node ./bin/www",
     "css-build": "node-sass --omit-source-map-url sass/style.scss public/stylesheets/style.css",
     "css-watch": "npm run css-build -- --watch"
   },
@@ -21,6 +21,7 @@
     "express-session": "^1.17.1",
     "http-errors": "~1.6.3",
     "mariadb": "^2.5.2",
+    "moment": "^2.29.1",
     "morgan": "~1.9.1",
     "node-sass": "^5.0.0",
     "passport": "^0.4.1",

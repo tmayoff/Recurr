@@ -8,6 +8,7 @@ var session = require('express-session');
 var flash = require('connect-flash');
 var passport = require('passport')
 var sequelize = require('./services/sequelize');
+const helpers = require('./helpers/helpers');
 
 var indexRouter = require('./routes/index').default;
 var apiRouter = require('./routes/api').default;
@@ -35,6 +36,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.locals.dateFormat = helpers.getDateFromDayAndCycleType;
+app.locals.moment = require('moment');
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
