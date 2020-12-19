@@ -42,6 +42,7 @@ RecurPay.init({
     name: Sequelize.STRING,
     normalized_name: Sequelize.STRING,
     dueday: Sequelize.INTEGER,
+    duedate: Sequelize.DATEONLY,
     price: Sequelize.DOUBLE,
     cycletype: Sequelize.STRING
 }, {
@@ -99,4 +100,4 @@ User.hasMany(RecurPay);
 
 sequelize.sync({ alter: true });
 
-export { User, RecurPay, hashPassword, validatePassword };
+export { User, formateDate, RecurPay, hashPassword, validatePassword };

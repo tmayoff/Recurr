@@ -29,11 +29,16 @@ block content
                 tr(id=p.id)
                   td#name.is-vcentered= p.name
                   td#price.is-vcentered= "$" + p.price.toFixed("2")
-                  td#dueday.is-vcentered(data=dateFormat(p.dueday, p.cycletype))= moment(dateFormat(p.dueday, p.cycletype)).format("MMMM Do YYYY")
+                  td#dueday.is-vcentered(data=p.duedate)= moment(p.duedate).format("MMMM Do YYYY")
                   td#cycletype.is-vcentered= p.cycletype
-                  td  
-                    button.button.is-info.edit-recurr(id=p.id)
-                      i.fas.fa-pencil-alt
+                  td
+                    .field.is-grouped
+                      .control
+                        button.button.is-info.edit-recurr(id=p.id)  
+                          i.fas.fa-pencil-alt
+                      .control
+                        button.button.is-danger.delete-recurr(id=p.id)
+                          i.fas.fa-trash
 
   #edit-recurr.modal
     .modal-background

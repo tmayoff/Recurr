@@ -8,22 +8,27 @@ $('document').ready(() => {
         let form = $("#edit-form");
 
         let id = $(e.currentTarget).attr('id');
+        form.attr("action", form.attr("action") + "/" + id)
+
         let tr = $("#" + id);
         let name = tr.children("#name").text();
         let price = tr.children("#price").text();
-        let dueday = new Date(tr.children("#dueday").attr("data"));
+        let duedate = new Date(tr.children("#dueday").attr("data"));
         let cycletype = tr.children("#cycletype").text();
 
-        var day = ("0" + dueday.getDate()).slice(-2);
-        var month = ("0" + (dueday.getMonth() + 1)).slice(-2);
+        var day = ("0" + duedate.getDate()).slice(-2);
+        var month = ("0" + (duedate.getMonth() + 1)).slice(-2);
+        $("#edit-dueday-input").val(duedate.getFullYear() + "-" + (month) + "-" + (day));
 
-
-        form.attr("action", form.attr("action") + "/" + id)
 
         $("#edit-name-input").val(name);
         $("#edit-price-input").val(price.substring(1));
-        $("#edit-dueday-input").val(dueday.getFullYear() + "-" + (month) + "-" + (day));
         $("#edit-cycletype-input").val(cycletype);
+    })
+
+    $(".delete-recurr").click(e => {
+        let id = $(e.currentTarget).attr('id');
+        window.location = "/api/recur/delete/" + id;
     })
 });
 

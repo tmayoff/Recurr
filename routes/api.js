@@ -1,6 +1,6 @@
 import passport from '../services/passport';
 import { Router } from 'express';
-import { RecurPay } from '../models/model';
+import { RecurPay, formatDate } from '../models/model';
 const auth = require('../services/auth');
 const router = Router();
 
@@ -29,16 +29,15 @@ router.post('/recur/new', auth.isAuthenticated, (req, res, next) => {
         normalized_name: req.body.name.toLowerCase().replace(" ", "_"),
         cycletype: cycle_type,
         dueday: day,
+        duedate: req.body.date,
         price: req.body.price,
         userId: req.user.id
     }).then(res.redirect(req.body.redirectUrl)).catch(err => { next(err) });
 });
 
 router.post('/recur/edit/:id', auth.isAuthenticated, (req, res, next) => {
-
     var day = 0;
     var cycle_type = req.body.cycle_type
-
     switch (cycle_type) {
         case "Yearly":
             var now = new Date(req.body.date);
@@ -61,6 +60,7 @@ router.post('/recur/edit/:id', auth.isAuthenticated, (req, res, next) => {
         normalized_name: req.body.name.toLowerCase().replace(" ", "_"),
         cycletype: cycle_type,
         dueday: day,
+        duedate: req.body.date,
         price: req.body.price,
     }, {
         where: {
@@ -68,6 +68,17 @@ router.post('/recur/edit/:id', auth.isAuthenticated, (req, res, next) => {
         }
     }).then(() => {
         res.redirect("/");
+    }).catch(err => next(err));
+});
+
+router.get('/recur/delete/:id', auth.isAuthenticated, (req, res, next) => {
+    RecurPay.destroy({
+        where: {
+            id: req.params.id
+        },
+        cascade: true
+    }).then(() => {
+        res.redirect('/');
     }).catch(err => next(err));
 });
 
