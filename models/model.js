@@ -31,6 +31,22 @@ function formateDate(date, useTime, twelveHour) {
     return format
 }
 
+// ---- Recurring Payment ----- //
+class RecurPay extends Model { }
+RecurPay.init({
+    id: {
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4,
+        primaryKey: true
+    },
+    name: Sequelize.STRING,
+    dueday: Sequelize.INTEGER,
+    duetype: Sequelize.STRING
+}, {
+    sequelize,
+    modelName: 'recurring_payment'
+});
+
 // ---- Users ----- //
 class User extends Model { }
 User.init({

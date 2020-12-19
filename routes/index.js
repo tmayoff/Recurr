@@ -7,12 +7,8 @@ var router = Router();
 
 /* GET home page. */
 router.get('/', auth.isAuthenticated, (req, res, next) => {
-  const { body: { user } } = req;
-  if (user) {
-    res.render("index");
-  } else {
-    res.redirect("login");
-  }
+
+  res.render('index');
 });
 
 router.get('/register', (req, res, next) => {
@@ -65,10 +61,11 @@ router.post('/register', (req, res, next) => {
 });
 
 router.get('/login', (req, res, next) => {
+  let errors = req.flash('error');
   res.render('auth/login', {
     subtitle: "Login",
     user: req.user,
-    messages: req.flash('error')
+    messages: errors
   });
 });
 

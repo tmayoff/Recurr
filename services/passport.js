@@ -2,10 +2,13 @@ import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
 import { User, validatePassword } from '../models/model';
 
-passport.use(new LocalStrategy((username, password, done) => {
+passport.use(new LocalStrategy({
+    usernameField: 'email',
+    passwordField: 'password'
+}, (email, password, done) => {
     User.findOne({
         where: {
-            username: username
+            email: email
         }
     }).then((user) => {
         if (!user) {
@@ -20,8 +23,7 @@ passport.use(new LocalStrategy((username, password, done) => {
     }).catch(err => {
         return done(err, null);
     })
-}
-));
+}));
 
 passport.serializeUser((user, done) => {
     done(null, user.id);
