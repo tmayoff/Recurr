@@ -2,7 +2,7 @@
 
 @import "../node_modules/bulma/bulma.sass";
 
-.tab-content div {
+.tab-content .tab {
   display: none;
 
   &.is-active {

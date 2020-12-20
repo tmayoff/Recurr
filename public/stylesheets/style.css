@@ -7702,7 +7702,7 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
   background-color: #fafafa;
   padding: 3rem 1.5rem 6rem; }
 
-.tab-content div {
+.tab-content .tab {
   display: none; }
-  .tab-content div.is-active {
+  .tab-content .tab.is-active {
     display: block; }

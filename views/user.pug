@@ -1,6 +1,8 @@
 extends layout
 
 block content
+    p.is-size-3= "Welcome, " + user.firstname + " " + user.lastname
+
     .tabs.is-centered(data-tabs-name="#user-tabs")
         ul
             li.is-active(data-tab-name="#tab-account")
@@ -9,8 +11,27 @@ block content
                 a Folders
     
     #user-tabs.tab-content
-        #tab-account.container.is-active(data-tab-name="account")
-            p= user.firstname
+        #tab-account.tab.is-active(data-tab-name="account")
+            .field.is-horizontal
+                .field-label.is-normal
+                    label.label First name
+                .field-body
+                    .control
+                        input.input(value=user.firstname readonly)
+                        
+            .field.is-horizontal
+                .field-label.is-normal
+                    label.label Last name
+                .field-body
+                    .control
+                        input.input(value=user.lastname readonly)
 
-        #tab-folders.container(data-tab-name="folders")
+            .field.is-horizontal
+                .field-label.is-normal
+                    label.label Email
+                .field-body
+                    .control
+                        input.input(value=user.email readonly)
+
+        #tab-folders.tab.container(data-tab-name="folders")
             p Folders
