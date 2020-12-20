@@ -40,9 +40,10 @@ router.get('/', auth.isAuthenticated, (req, res, next) => {
           break;
       }
     });
-
+    let tmp = monthly;
     monthly += yearly / 12;
-    res.render('index', { user: req.user, list: results[0], monthly, folders: results[2] });
+    yearly += tmp * 12;
+    res.render('index', { user: req.user, list: results[0], folders: results[2], yearly, monthly });
   });
 });
 
