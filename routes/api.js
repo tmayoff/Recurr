@@ -1,5 +1,5 @@
 const express = require('express');
-const RecurPay = require('../models/model').RecurPay;
+const RecurrModel = require('../models/Recurr');
 const auth = require('../services/auth');
 const router = express.Router();
 
@@ -23,7 +23,7 @@ router.post('/recur/new', auth.isAuthenticated, (req, res, next) => {
             break;
     }
 
-    RecurPay.create({
+    RecurrModel.create({
         name: req.body.name,
         normalized_name: req.body.name.toLowerCase().replace(" ", "_"),
         cycletype: cycle_type,
@@ -54,7 +54,7 @@ router.post('/recur/edit/:id', auth.isAuthenticated, (req, res, next) => {
             break;
     }
 
-    RecurPay.update({
+    RecurrModel.update({
         name: req.body.name,
         normalized_name: req.body.name.toLowerCase().replace(" ", "_"),
         cycletype: cycle_type,
@@ -71,7 +71,7 @@ router.post('/recur/edit/:id', auth.isAuthenticated, (req, res, next) => {
 });
 
 router.get('/recur/delete/:id', auth.isAuthenticated, (req, res, next) => {
-    RecurPay.destroy({
+    RecurrModel.destroy({
         where: {
             id: req.params.id
         },
