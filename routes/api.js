@@ -1,5 +1,6 @@
 const express = require('express');
 const RecurrModel = require('../models/Recurr');
+const FolderModel = require('../models/Folder');
 const auth = require('../services/auth');
 const router = express.Router();
 
@@ -79,6 +80,16 @@ router.get('/recur/delete/:id', auth.isAuthenticated, (req, res, next) => {
     }).then(() => {
         res.redirect('/');
     }).catch(err => next(err));
+});
+
+router.post('/folder/new', auth.isAuthenticated, (req, res, next) => {
+
+    FolderModel.create({
+        userId: req.user.id,
+        name: req.body.name,
+        normalized_name: req.body.name.toLowerCase().replace(" ", "_"),
+    }).then(() => res.sendStatus(200))
+        .catch(() => res.sendStatus(500));
 });
 
 module.exports = router;

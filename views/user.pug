@@ -1,37 +1,66 @@
 extends layout
 
 block content
-    p.is-size-3= "Welcome, " + user.firstname + " " + user.lastname
+    script(src="/javascript/user.js")
 
-    .tabs.is-centered(data-tabs-name="#user-tabs")
-        ul
-            li.is-active(data-tab-name="#tab-account")
-                a Account
-            li(data-tab-name="#tab-folders")
-                a Folders
-    
-    #user-tabs.tab-content
-        #tab-account.tab.is-active(data-tab-name="account")
-            .field.is-horizontal
-                .field-label.is-normal
-                    label.label First name
-                .field-body
-                    .control
-                        input.input(value=user.firstname readonly)
-                        
-            .field.is-horizontal
-                .field-label.is-normal
-                    label.label Last name
-                .field-body
-                    .control
-                        input.input(value=user.lastname readonly)
+    .columns
+        .column.is-one-quarter
+            .card
+                .card-content
+                    aside.menu(data-tabs-name="#user-tabs")
+                        p.menu-label.is-size-5= "Welcome, " + user.firstname + " " + user.lastname
+                        ul.menu-list
+                            li
+                                a(data-tab-name="#tab-account") Account
+                            li
+                                a.is-active(data-tab-name="#tab-folders") Folders
+        .column
+            #user-tabs.tab-content
+                #tab-account.tab(data-tab-name="account")
+                    .card
+                        .card-content
+                            .field.is-horizontal
+                                .field-label.is-normal
+                                    label.label First name
+                                .field-body
+                                    .control
+                                        input.input(value=user.firstname readonly)
+                                        
+                            .field.is-horizontal
+                                .field-label.is-normal
+                                    label.label Last name
+                                .field-body
+                                    .control
+                                        input.input(value=user.lastname readonly)
 
-            .field.is-horizontal
-                .field-label.is-normal
-                    label.label Email
-                .field-body
-                    .control
-                        input.input(value=user.email readonly)
+                            .field.is-horizontal
+                                .field-label.is-normal
+                                    label.label Email
+                                .field-body
+                                    .control
+                                        input.input(value=user.email readonly)
 
-        #tab-folders.tab.container(data-tab-name="folders")
-            p Folders
+                #tab-folders.tab.is-active(data-tab-name="folders")
+                    .card
+                        .card-content        
+                            
+                            form#new-folder-form(action="/api/folder/new")
+                                input(hidden name="redirectUrl" value="/user")
+                            table.table.is-fullwidth.is-hoverable.is-bordered
+                                thead.thead
+                                    tr  
+                                        th Name
+                                        th
+                                tbody.tbody
+                                    tr
+                                        td
+                                            .field
+                                                .control
+                                                    input#folder-name-input.input(form="new-folder-form" name="name")
+                                        td
+                                            .is-flex.is-justify-content-center
+                                                button.button.is-success.is-light(type="submit" form="new-folder-form")
+                                                    i.fas.fa-plus
+                                    each folder in folders
+                                        tr
+                                            td= folder.name

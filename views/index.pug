@@ -9,7 +9,8 @@ block content
             .menu-label Folders
             ul.menu-list
               each folder in folders
-                li folder.name
+                li
+                  a= folder.name
             .menu-label Tags
 
     .column

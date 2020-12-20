@@ -43,7 +43,13 @@ router.get('/', auth.isAuthenticated, (req, res, next) => {
     let tmp = monthly;
     monthly += yearly / 12;
     yearly += tmp * 12;
-    res.render('index', { user: req.user, list: results[0], folders: results[2], yearly, monthly });
+
+    // Folders
+    let folders = [];
+    folders.push({ name: "No Folder" })
+    folders = folders.concat(results[2]);
+
+    res.render('index', { user: req.user, list: results[0], folders, yearly, monthly });
   });
 });
 

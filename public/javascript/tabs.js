@@ -1,14 +1,14 @@
 $(document).ready(function () {
-    $('.tabs li').on('click', (e) => {
+    $('.menu a').on('click', (e) => {
         let current = $(e.currentTarget);
 
-        let tabcontent = current.parent().parent().data("tabs-name");
+        let tabcontent = current.parents('.menu').data("tabs-name");
         tabcontent = $(tabcontent.toString())
 
         var tab = current.data('tab-name');
 
         // Switch tab name highlight
-        $(".tabs li").removeClass('is-active');
+        $(".menu a").removeClass('is-active');
         current.addClass('is-active');
 
         // Switch visible tab
