@@ -13,7 +13,7 @@ var SequelizeStore = require('connect-session-sequelize')(session.Store);
 var indexRouter = require('./routes/index');
 var authRouter = require('./routes/auth');
 var apiRouter = require('./routes/api');
-var usersRouter = require('./routes/users');
+var userRouter = require('./routes/user');
 
 var app = express();
 
@@ -47,7 +47,7 @@ app.locals.moment = require('moment');
 
 app.use('/', indexRouter);
 app.use('/authentication', authRouter);
-app.use('/users', usersRouter);
+app.use('/user', userRouter);
 app.use('/api', apiRouter);
 
 // catch 404 and forward to error handler

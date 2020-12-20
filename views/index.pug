@@ -8,8 +8,8 @@ block content
           aside.menu
             .menu-label Folders
             ul.menu-list
-              li Dashboard
-              li Customers
+              each folder in folders
+                li folder.name
             .menu-label Tags
 
     .column

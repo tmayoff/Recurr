@@ -1,7 +1,7 @@
 const auth = require('../services/auth');
-const passport = require('../services/passport');
 const express = require('express');
-const { User, RecurPay, hashPassword } = require('../models/model');
+const RecurrModel = require('../models/Recurr');
+const FolderModel = require('../models/Folders');
 
 var router = express.Router();
 
@@ -9,14 +9,20 @@ var router = express.Router();
 router.get('/', auth.isAuthenticated, (req, res, next) => {
   let promises = [];
 
-  promises.push(RecurPay.findAll({
+  promises.push(RecurrModel.findAll({
     where: {
       userId: req.user.id
     }
   }));
 
-  promises.push(RecurPay.findAll({
+  promises.push(RecurrModel.findAll({
     attributes: ['price', 'cycletype']
+  }));
+
+  promises.push(FolderModel.findAll({
+    where: {
+      userId: req.user.id
+    }
   }));
 
 
@@ -36,7 +42,7 @@ router.get('/', auth.isAuthenticated, (req, res, next) => {
     });
 
     monthly += yearly / 12;
-    res.render('index', { user: req.user, list: results[0], monthly });
+    res.render('index', { user: req.user, list: results[0], monthly, folders: results[2] });
   });
 });
 
