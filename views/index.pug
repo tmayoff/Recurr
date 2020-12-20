@@ -16,13 +16,13 @@ block content
       .card
         .card-content
           .columns.is-vcentered
-            .column
+            .column.is-flex
               .notification.is-primary
                 .subtitle= "Total monthly cost: $" + monthly.toFixed("2")
-            .column
+            .column.is-flex
               .notification.is-primary
                 .subtitle= "Total yearly cost: $" + yearly.toFixed("2")
-            .column
+            .column.is-flex.is-justify-content-end
               .is-pulled-right.field.has-addons
                 .control
                   button.button.is-info.is-light
@@ -112,6 +112,7 @@ block content
                     option Weekly
           .field.is-pulled-right
             button.button.is-info Edit
+  
   #new-recurr.modal
     .modal-background
     .modal-card

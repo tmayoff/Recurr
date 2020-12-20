@@ -1,9 +1,16 @@
 extends layout
 
 block content
-    .tabs.is-centered
+    .tabs.is-centered(data-tabs-name="#user-tabs")
         ul
-            li.is-active
+            li.is-active(data-tab-name="#tab-account")
                 a Account
-            li
+            li(data-tab-name="#tab-folders")
                 a Folders
+    
+    #user-tabs.tab-content
+        #tab-account.container.is-active(data-tab-name="account")
+            p= user.firstname
+
+        #tab-folders.container(data-tab-name="folders")
+            p Folders

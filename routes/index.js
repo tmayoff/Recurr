@@ -1,7 +1,7 @@
 const auth = require('../services/auth');
 const express = require('express');
 const RecurrModel = require('../models/Recurr');
-const FolderModel = require('../models/Folders');
+const FolderModel = require('../models/Folder');
 
 var router = express.Router();
 
