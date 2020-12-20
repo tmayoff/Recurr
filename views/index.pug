@@ -8,14 +8,32 @@ block content
           aside.menu
             .menu-label Folders
             ul.menu-list
-              li Dashboard
-              li Customers
+              each folder in folders
+                li folder.name
             .menu-label Tags
 
     .column
       .card
         .card-content
-          button#new-modal.button.is-success.is-pulled-right New
+          .columns.is-vcentered
+            .column
+              .notification.is-primary
+                .subtitle= "Total monthly cost: $" + monthly.toFixed("2")
+            .column
+              .notification.is-primary
+                .subtitle= "Total monthly cost: $" + monthly.toFixed("2")
+            .column
+              .is-pulled-right.field.has-addons
+                .control
+                  button.button.is-info.is-light
+                    i.fas.fa-sort
+                .control
+                  button.button.is-info.is-light
+                    i.fas.fa-filter
+                .control
+                  button#new-modal.button.is-success
+                    i.fas.fa-plus
+            
           table.table.is-stripped.is-hoverable.is-fullwidth
             thead.thead
               tr
@@ -40,11 +58,27 @@ block content
                         button.button.is-danger.delete-recurr(id=p.id)
                           i.fas.fa-trash
 
+  #delete-recurr-modal.modal
+    .modal-background
+    .modal-card
+      header.modal-card-head
+        .modal-card-title Are you sure?
+        button.delete(aria-label="close" onclick="toggleModal('delete-recurr-modal')")
+      section.modal-card-body
+        .subtitle#delete-modal-subtitle
+        .is-flex.is-justify-content-center
+          .field.is-grouped
+            .control
+              a#delete-recur-button.button.is-danger(href="/api/recur/delete/") Delete
+            .control
+              button.button.is-info.is-light Cancel
+
   #edit-recurr.modal
     .modal-background
     .modal-card
       header.modal-card-head
         .modal-card-title Edit Recurring Payment
+        button.delete(aria-label="close" onclick="toggleModal('edit-recurr')")
       section.modal-card-body
         form#edit-form(action="/api/recur/edit" method="POST")
           input.is-hidden(name="redirectUrl", value="/")
@@ -83,6 +117,7 @@ block content
     .modal-card
       header.modal-card-head
         .modal-card-title New Recurring Payment
+        button.delete(aria-label="close" onclick="toggleModal('new-recurr')")
       section.modal-card-body
         form(action="/api/recur/new" method="POST")
           input.is-hidden(name="redirectUrl", value="/")

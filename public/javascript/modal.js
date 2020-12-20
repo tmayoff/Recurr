@@ -26,31 +26,20 @@ $('document').ready(() => {
         $("#edit-cycletype-input").val(cycletype);
     })
 
+    $("#delete-recurr-modal").children(".modal-background").click(() => toggleModal("delete-recurr-modal"));
     $(".delete-recurr").click(e => {
         let id = $(e.currentTarget).attr('id');
-        window.location = "/api/recur/delete/" + id;
+        let tr = $("#" + id);
+        let name = tr.children("#name").text();
+        $("#delete-recurr-modal").find("#delete-modal-subtitle").text("Are you sure you want to delete " + name);
+        let btn = $("#delete-recurr-modal").find("#delete-recur-button");
+        btn.attr("href", btn.attr("href") + id);
+
+        toggleModal("delete-recurr-modal");
     })
 });
 
 function toggleModal(modalName) {
+    console.log("toggling modal: " + modalName)
     $(".modal#" + modalName).toggleClass("is-active");
-}
-
-function getDateFromDayAndCycleType(day, cycletype) {
-    var now = new Date();
-    var date = new Date(now.getFullYear(), now.getMonth(), day, 0, 0, 0, 0);
-    if (date < now) {
-        switch (cycletype) {
-            case "Monthly":
-                date = new Date(date.setMonth(date.getMonth() + 1));
-                break;
-            case "Yearly":
-                date = new Date(date.setFullYear(date.getFullYear() + 1));
-                break;
-            // TODO Add weekly
-            default:
-                break;
-        }
-    }
-    return date;
 }

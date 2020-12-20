@@ -1,54 +1,9 @@
-const { Sequelize, Model, Datatypes } = require('sequelize');
+const { Sequelize, Model } = require('sequelize');
 const { randomBytes, pbkdf2Sync } = require('crypto');
 const sequelize = require('../services/sequelize');
 
-var months = ["Jan.", "Feb", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-var days = ["Sun.", "Mon.", "Tue.", "Wed.", "Thu.", "Fri.", "Sat."]
-
-/**
- * 
- * @param {Date} date The date to format
- * @param {Boolean} useTime add the time to format as well
- * @param {Boolean} twelveHour Use 12-hour format or not
- */
-function formateDate(date, useTime, twelveHour) {
-    let dayOfWeek = days[date.getDay()];
-    let dayOfMonth = date.getDate();
-    let month = months[date.getMonth()];
-    let year = date.getFullYear();
-
-    let format = dayOfWeek + "" + month + ", " + dayOfMonth + ", " + year
-    if (useTime) {
-        let hours = date.getHours();
-        if (twelveHour && hours > 12) {
-            hours -= 12;
-        }
-
-        let minutes = ("0" + date.getMinutes()).slice(-2);
-        format += " at " + hours + ":" + minutes;
-    }
-
-    return format
-}
-
-// ---- Recurring Payment ----- //
-class RecurPay extends Model { }
-RecurPay.init({
-    id: {
-        type: Sequelize.UUID,
-        defaultValue: Sequelize.UUIDV4,
-        primaryKey: true
-    },
-    name: Sequelize.STRING,
-    normalized_name: Sequelize.STRING,
-    dueday: Sequelize.INTEGER,
-    duedate: Sequelize.DATEONLY,
-    price: Sequelize.DOUBLE,
-    cycletype: Sequelize.STRING
-}, {
-    sequelize,
-    modelName: 'recurring_payments'
-});
+const FolderModel = require('./Folders');
+const RecurrModel = require('./Recurr');
 
 // ---- Users ----- //
 class User extends Model { }
@@ -96,12 +51,11 @@ function validatePassword(user, password) {
     return user.hash == hash;
 }
 
-User.hasMany(RecurPay);
+User.hasMany(RecurrModel);
+User.hasMany(FolderModel);
 
 sequelize.sync({ alter: true });
 
 module.exports.User = User;
-module.exports.formateDate = formateDate;
-module.exports.RecurPay = RecurPay;
 module.exports.hashPassword = hashPassword;
 module.exports.validatePassword = validatePassword;
