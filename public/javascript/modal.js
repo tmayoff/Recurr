@@ -15,15 +15,18 @@ $('document').ready(() => {
         let price = tr.children("#price").text();
         let duedate = new Date(tr.children("#dueday").attr("data"));
         let cycletype = tr.children("#cycletype").text();
+        let folder = tr.children("#folder").data("name");
+
+        console.log(folder)
 
         var day = ("0" + duedate.getDate()).slice(-2);
         var month = ("0" + (duedate.getMonth() + 1)).slice(-2);
         $("#edit-dueday-input").val(duedate.getFullYear() + "-" + (month) + "-" + (day));
 
-
         $("#edit-name-input").val(name);
         $("#edit-price-input").val(price.substring(1));
         $("#edit-cycletype-input").val(cycletype);
+        $("#edit-folder-input").val(folder);
     })
 
     $("#delete-recurr-modal").children(".modal-background").click(() => toggleModal("delete-recurr-modal"));
@@ -40,6 +43,6 @@ $('document').ready(() => {
 });
 
 function toggleModal(modalName) {
-    console.log("toggling modal: " + modalName)
+    // console.log("toggling modal: " + modalName)
     $(".modal#" + modalName).toggleClass("is-active");
 }

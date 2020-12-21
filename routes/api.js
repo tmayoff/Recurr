@@ -55,6 +55,9 @@ router.post('/recur/edit/:id', auth.isAuthenticated, (req, res, next) => {
             break;
     }
 
+    let folder = null;
+    if (req.body.folder != "None") folder = req.body.folder;
+
     RecurrModel.update({
         name: req.body.name,
         normalized_name: req.body.name.toLowerCase().replace(" ", "_"),
@@ -62,6 +65,7 @@ router.post('/recur/edit/:id', auth.isAuthenticated, (req, res, next) => {
         dueday: day,
         duedate: req.body.date,
         price: req.body.price,
+        folderId: folder
     }, {
         where: {
             id: req.params.id
