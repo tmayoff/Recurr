@@ -28,6 +28,8 @@ app.use(session({
 }));
 app.use(flash());
 
+sequelize.sync({ alter: true });
+
 // Passport
 app.use(passport.initialize());
 app.use(passport.session());

@@ -1,5 +1,6 @@
 const express = require('express');
 const RecurrModel = require('../models/Recurr');
+const FolderModel = require('../models/Folder');
 const auth = require('../services/auth');
 const router = express.Router();
 
@@ -54,6 +55,9 @@ router.post('/recur/edit/:id', auth.isAuthenticated, (req, res, next) => {
             break;
     }
 
+    let folder = null;
+    if (req.body.folder != "None") folder = req.body.folder;
+
     RecurrModel.update({
         name: req.body.name,
         normalized_name: req.body.name.toLowerCase().replace(" ", "_"),
@@ -61,6 +65,7 @@ router.post('/recur/edit/:id', auth.isAuthenticated, (req, res, next) => {
         dueday: day,
         duedate: req.body.date,
         price: req.body.price,
+        folderId: folder
     }, {
         where: {
             id: req.params.id
@@ -79,6 +84,16 @@ router.get('/recur/delete/:id', auth.isAuthenticated, (req, res, next) => {
     }).then(() => {
         res.redirect('/');
     }).catch(err => next(err));
+});
+
+router.post('/folder/new', auth.isAuthenticated, (req, res, next) => {
+
+    FolderModel.create({
+        userId: req.user.id,
+        name: req.body.name,
+        normalized_name: req.body.name.toLowerCase().replace(" ", "_"),
+    }).then(() => res.sendStatus(200))
+        .catch(() => res.sendStatus(500));
 });
 
 module.exports = router;

@@ -2,12 +2,11 @@ const { Sequelize, Model } = require('sequelize');
 const { randomBytes, pbkdf2Sync } = require('crypto');
 const sequelize = require('../services/sequelize');
 
-const FolderModel = require('./Folders');
+const FolderModel = require('./Folder');
 const RecurrModel = require('./Recurr');
 
-// ---- Users ----- //
-class User extends Model { }
-User.init({
+class UserModel extends Model { }
+UserModel.init({
     id: {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,
@@ -29,7 +28,7 @@ User.init({
     modelName: "user"
 });
 
-function hashPassword(password) {
+UserModel.hashPassword = function (password) {
     var salt = randomBytes(128).toString('hex');
     var iterations = 10000;
     var hash = pbkdf2Sync(password, salt, iterations, 32, 'sha512').toString('hex');
@@ -43,19 +42,15 @@ function hashPassword(password) {
 
 /**
  * 
- * @param {User} user The user to validate
+ * @param {UserModel} user The user to validate
  * @param {string} password The password to validate 
  */
-function validatePassword(user, password) {
+UserModel.validatePassword = function (user, password) {
     let hash = pbkdf2Sync(password, user.salt, user.iterations, 32, 'sha512').toString('hex');
     return user.hash == hash;
 }
 
-User.hasMany(RecurrModel);
-User.hasMany(FolderModel);
+UserModel.hasMany(RecurrModel);
+UserModel.hasMany(FolderModel);
 
-sequelize.sync({ alter: true });
-
-module.exports.User = User;
-module.exports.hashPassword = hashPassword;
-module.exports.validatePassword = validatePassword;
+module.exports = UserModel;

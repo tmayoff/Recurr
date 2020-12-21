@@ -18,7 +18,7 @@ FolderModel.init({
 });
 
 FolderModel.hasMany(RecurrModel);
-// RecurrModel.hasOne(FolderModel);
+RecurrModel.belongsTo(FolderModel);
 // sequelize.sync({ alter: true });
 
 module.exports = FolderModel;

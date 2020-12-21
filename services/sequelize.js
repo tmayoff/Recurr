@@ -49,7 +49,7 @@ if (process.env.SSH_HOST) {
 } else {
     sequelize.authenticate()
         .then(() => {
-            console.log("Authenticated");
+            console.log("Sequelize authenticated");
         }).catch(err => {
             console.error(err);
         });

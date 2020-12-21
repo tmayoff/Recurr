@@ -1,3 +1,11 @@
 @charset "UTF-8";
 
 @import "../node_modules/bulma/bulma.sass";
+
+.tab-content .tab {
+  display: none;
+
+  &.is-active {
+    display: block;
+  }
+}

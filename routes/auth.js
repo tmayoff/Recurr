@@ -1,6 +1,6 @@
 const passport = require('../services/passport');
 const express = require('express');
-const { User, hashPassword } = require('../models/model');
+const User = require('../models/User');
 
 var router = express.Router();
 
@@ -38,7 +38,7 @@ router.post('/register', (req, res, next) => {
         res.redirect('register');
     }
 
-    let pass = hashPassword(password);
+    let pass = User.hashPassword(password);
     User.create({
         firstname: firstname,
         lastname: lastname,
