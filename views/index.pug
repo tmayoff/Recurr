@@ -9,7 +9,7 @@ block content
             .menu-label Folders
             ul.menu-list
               li
-                a(href="/").is-active= "All (" + list.length + ")"
+                a(href="/").is-active= "All (" + total + ")"
               each folder in folders
                 li
                   a(href="?folder=" + folder.id)= folder.name + " (" + folder.recurring_payments.length + ")"

@@ -1,4 +1,18 @@
 $(document).ready(() => {
+    // Delete folder
+    $(".folder-delete").click(e => {
+        let id = $(e.currentTarget).data("id");
+        $.ajax({
+            type: "delete",
+            url: "api/folder/" + id,
+            success: () => {
+                window.location.reload();
+            },
+            error: () => {
+                console.log("error")
+            }
+        });
+    });
 
     $("#new-folder-form").on('submit', e => {
 
@@ -16,6 +30,8 @@ $(document).ready(() => {
         }).fail(() => {
             console.error("Error");
         });
+
+
 
         return false;
     })
