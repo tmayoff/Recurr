@@ -18,25 +18,27 @@ block content
     .column
       .card
         .card-content
-          .columns.is-vcentered
-            .column.is-flex
-              .notification.is-primary
-                .subtitle= "Total monthly cost: $" + monthly.toFixed("2")
-            .column.is-flex
-              .notification.is-primary
-                .subtitle= "Total yearly cost: $" + yearly.toFixed("2")
-            .column.is-flex.is-justify-content-end
-              .is-pulled-right.field.has-addons
-                .control
-                  button.button.is-info.is-light
-                    i.fas.fa-sort
-                .control
-                  button.button.is-info.is-light
-                    i.fas.fa-filter
-                .control
-                  button#new-modal.button.is-success
-                    i.fas.fa-plus
-            
+          .tile.is-ancestor
+            .tile.is-horizontal
+              .tile.is-parent
+                .tile.is-child
+                  .m-1.notification.is-primary
+                    .subtitle= "Total monthly cost: $" + monthly.toFixed("2")
+                .tile.is-child
+                  .m-1.notification.is-primary
+                    .subtitle= "Total yearly cost: $" + yearly.toFixed("2")              
+                .tile.is-child.is-flex.is-align-items-center.is-justify-content-end
+                  .is-pulled-right.field.has-addons
+                    .control
+                      button.button.is-info.is-light
+                        i.fas.fa-sort
+                    .control
+                      button.button.is-info.is-light
+                        i.fas.fa-filter
+                    .control
+                      button#new-modal.button.is-success
+                        i.fas.fa-plus
+
           table.table.is-stripped.is-hoverable.is-fullwidth
             thead.thead
               tr
