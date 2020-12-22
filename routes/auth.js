@@ -64,10 +64,15 @@ router.get('/login', (req, res, next) => {
 
 router.post('/login', passport.authenticate('local', {
     successRedirect: '/',
-    failureRedirect: '/login',
-    failureFlash: true
+    failureRedirect: '/authentication/login',
+    failureFlash: true,
 }), (req, res, next) => {
 
+});
+
+router.get('/logout', (req, res, next) => {
+    req.logOut();
+    res.redirect('/');
 });
 
 module.exports = router;
