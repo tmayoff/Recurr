@@ -1,6 +1,8 @@
 extends layout
 
 block content
+  script(src="/javascript/index.js")
+
   .columns
     .column.is-one-quarter.is-hidden-mobile
       .card
@@ -9,10 +11,10 @@ block content
             .menu-label Folders
             ul.menu-list
               li
-                a(href="/").is-active= "All (" + list.length + ")"
+                a.menu-item(href="/" data-folder="all")= "All (" + total + ")"
               each folder in folders
                 li
-                  a(href="?folder=" + folder.id)= folder.name + " (" + folder.recurring_payments.length + ")"
+                  a.menu-item(href="?folder=" + folder.id data-folder=folder.id)= folder.name + " (" + folder.recurring_payments.length + ")"
             .menu-label Tags
 
     .column

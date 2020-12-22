@@ -34,6 +34,10 @@ router.get('/', auth.isAuthenticated, (req, res, next) => {
     include: [RecurrModel]
   }));
 
+  promises.push(RecurrModel.count({
+    where: { userId: req.user.id }
+  }))
+
   Promise.all(promises).then((results) => {
     // Calculate summary
     let monthly = 0;
@@ -53,7 +57,7 @@ router.get('/', auth.isAuthenticated, (req, res, next) => {
     monthly += yearly / 12;
     yearly += tmp * 12;
 
-    res.render('index', { user: req.user, list: results[0], folders: results[1], yearly, monthly });
+    res.render('index', { user: req.user, total: results[2], list: results[0], folders: results[1], yearly, monthly });
   });
 });
 
