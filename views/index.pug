@@ -4,7 +4,7 @@ block content
   script(src="/javascript/index.js")
 
   .columns
-    .column.is-one-quarter.is-hidden-mobile
+    .column.is-one-quarter
       .card
         .card-content
           aside.menu
@@ -29,46 +29,47 @@ block content
                 .tile.is-child
                   .m-1.notification.is-primary
                     .subtitle= "Total yearly cost: $" + yearly.toFixed("2")              
-                .tile.is-child.is-flex.is-align-items-center.is-justify-content-end
-                  .is-pulled-right.field.has-addons
-                    .control
-                      button.button.is-info.is-light
-                        i.fas.fa-sort
-                    .control
-                      button.button.is-info.is-light
-                        i.fas.fa-filter
-                    .control
-                      button#new-modal.button.is-success
-                        i.fas.fa-plus
+                //- .tile.is-child.is-flex.is-align-items-center.is-justify-content-end
+                //-   .is-pulled-right.field.has-addons
+                //-     .control
+                //-       button.button.is-info.is-light
+                //-         i.fas.fa-sort
+                //-     .control
+                //-       button.button.is-info.is-light
+                //-         i.fas.fa-filter
+                //-     .control
+                //-       button#new-modal.button.is-success
+                //-         i.fas.fa-plus
 
-          table.table.is-stripped.is-hoverable.is-fullwidth
-            thead.thead
-              tr
-                th Name
-                th Price
-                th Next Due Date
-                th Cycle
-                th Folder
-                th
-            tbody.tbody
-              each p in list
-                tr(id=p.id)
-                  td#name.is-vcentered= p.name
-                  td#price.is-vcentered= "$" + p.price.toFixed("2")
-                  td#dueday.is-vcentered(data=p.duedate)= moment(p.duedate).format("MMMM Do YYYY")
-                  td#cycletype.is-vcentered= p.cycletype
-                    if p.folder
-                      td#folder.is-vcentered(data-name=p.folder.id)=p.folder.name
-                    else
-                      td#folder.is-vcentered(data-name="None")
-                  td
-                    .field.is-grouped
-                      .control
-                        button.button.is-info.edit-recurr(id=p.id)  
-                          i.fas.fa-pencil-alt
-                      .control
-                        button.button.is-danger.delete-recurr(id=p.id)
-                          i.fas.fa-trash
+          .table-container
+            table.table.is-stripped.is-hoverable.is-fullwidth
+              thead.thead
+                tr
+                  th Name
+                  th Price
+                  th Next Due Date
+                  th Cycle
+                  th Folder
+                  th
+              tbody.tbody
+                each p in list
+                  tr(id=p.id)
+                    td#name.is-vcentered= p.name
+                    td#price.is-vcentered= "$" + p.price.toFixed("2")
+                    td#dueday.is-vcentered(data=p.duedate)= moment(p.duedate).format("MMMM Do YYYY")
+                    td#cycletype.is-vcentered= p.cycletype
+                      if p.folder
+                        td#folder.is-vcentered(data-name=p.folder.id)=p.folder.name
+                      else
+                        td#folder.is-vcentered(data-name="None")
+                    td
+                      .field.is-grouped
+                        .control
+                          button.button.is-info.edit-recurr(id=p.id)  
+                            i.fas.fa-pencil-alt
+                        .control
+                          button.button.is-danger.delete-recurr(id=p.id)
+                            i.fas.fa-trash
 
   #delete-recurr-modal.modal
     .modal-background
