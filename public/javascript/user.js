@@ -9,8 +9,6 @@ $(document).ready(() => {
         console.log(url)
 
         $.post(url, { name }, () => {
-
-            //TODO Done
             $("#folder-name-input").val("");
             window.location.reload();
         }).fail(() => {
