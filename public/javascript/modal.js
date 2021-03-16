@@ -1,6 +1,6 @@
 $('document').ready(() => {
-    $("#new-modal").click(() => toggleModal("new-recurr"));
-    $("#new-recurr .modal-background").click(() => toggleModal("new-recurr"));
+    $("#new-recurr").click(() => toggleModal("new-recurr"));
+    $(".new-recurr").click(() => toggleModal("new-recurr"));
 
     $("#edit-recurr").children(".modal-background").click(() => toggleModal("edit-recurr"));
     $(".edit-recurr").click(e => {
@@ -16,8 +16,6 @@ $('document').ready(() => {
         let duedate = new Date(tr.children("#dueday").attr("data"));
         let cycletype = tr.children("#cycletype").text();
         let folder = tr.children("#folder").data("name");
-
-        console.log(folder)
 
         var day = ("0" + duedate.getDate()).slice(-2);
         var month = ("0" + (duedate.getMonth() + 1)).slice(-2);
@@ -43,6 +41,6 @@ $('document').ready(() => {
 });
 
 function toggleModal(modalName) {
-    // console.log("toggling modal: " + modalName)
+    console.log("toggling modal: " + modalName)
     $(".modal#" + modalName).toggleClass("is-active");
 }
