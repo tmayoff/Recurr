@@ -43,6 +43,8 @@ router.get('/', auth.isAuthenticated, (req, res, next) => {
     let monthly = 0;
     let yearly = 0;
     results[0].forEach(obj => {
+      if (obj.paused) return;
+
       switch (obj.cycletype) {
         case "Monthly":
           monthly += obj.price;

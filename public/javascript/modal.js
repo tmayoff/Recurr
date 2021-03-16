@@ -4,27 +4,32 @@ $('document').ready(() => {
 
     $("#edit-recurr").children(".modal-background").click(() => toggleModal("edit-recurr"));
     $(".edit-recurr").click(e => {
-        toggleModal("edit-recurr");
         let form = $("#edit-form");
 
         let id = $(e.currentTarget).attr('id');
-        form.attr("action", form.attr("action") + "/" + id)
+        form.attr("action", form.attr("action") + "/" + id);
 
-        let tr = $("#" + id);
-        let name = tr.children("#name").text();
-        let price = tr.children("#price").text();
-        let duedate = new Date(tr.children("#dueday").attr("data"));
-        let cycletype = tr.children("#cycletype").text();
-        let folder = tr.children("#folder").data("name");
+        $.get("api/recurr/" + id, Recurr => {
+            toggleModal("edit-recurr");
 
-        var day = ("0" + duedate.getDate()).slice(-2);
-        var month = ("0" + (duedate.getMonth() + 1)).slice(-2);
-        $("#edit-dueday-input").val(duedate.getFullYear() + "-" + (month) + "-" + (day));
+            Recurr = Recurr[0];
+            console.log(Recurr);
 
-        $("#edit-name-input").val(name);
-        $("#edit-price-input").val(price.substring(1));
-        $("#edit-cycletype-input").val(cycletype);
-        $("#edit-folder-input").val(folder);
+            $("#edit-name-input").val(Recurr.name);
+            $("#edit-price-input").val(Recurr.price);
+            $("#edit-cycletype-input").val(Recurr.cycletype);
+            $("#edit-paused-input").prop("checked", Recurr.paused);
+
+            if (Recurr.folder)
+                $("#edit-folder-input").val(Recurr.folder.id);
+            else
+                $("#edit-folder-input").val("None");
+
+            let duedate = new Date(Recurr.duedate);
+            var day = ("0" + duedate.getDate()).slice(-2);
+            var month = ("0" + (duedate.getMonth() + 1)).slice(-2);
+            $("#edit-dueday-input").val(duedate.getFullYear() + "-" + (month) + "-" + (day));
+        });
     })
 
     $("#delete-recurr-modal").children(".modal-background").click(() => toggleModal("delete-recurr-modal"));

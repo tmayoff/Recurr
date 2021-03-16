@@ -51,8 +51,8 @@ block content
                   th Cycle
                   th Folder
                   th
-                      button.button.is-success.new-recurr
-                        i.fas.fa-plus
+                    button.button.is-success.new-recurr
+                      i.fas.fa-plus
               tbody.tbody
                 each p in list
                   tr(id=p.id)
@@ -135,6 +135,11 @@ block content
                     option None
                     each folder in folders
                       option(value=folder.id)= folder.name
+          .field.is-horizontal 
+            .control
+              label.checkbox
+                input#edit-paused-input(name="paused" type="checkbox")
+                |       Payment Paused
           .field.is-pulled-right
             button.button.is-info Edit
   

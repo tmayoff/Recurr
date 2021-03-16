@@ -13,7 +13,8 @@ RecurrModel.init({
     dueday: Sequelize.INTEGER,
     duedate: Sequelize.DATEONLY,
     price: Sequelize.DOUBLE,
-    cycletype: Sequelize.STRING
+    cycletype: Sequelize.STRING,
+    paused: Sequelize.BOOLEAN
 }, {
     sequelize,
     modelName: 'recurring_payments'

@@ -2,7 +2,20 @@ const express = require('express');
 const RecurrModel = require('../models/Recurr');
 const FolderModel = require('../models/Folder');
 const auth = require('../services/auth');
+const { reset } = require('nodemon');
 const router = express.Router();
+
+router.get('/recurr/:id?', auth.isAuthenticated, (req, res, next) => {
+    let where = { userId: req.user.id };
+    if (req.params.id) {
+        where.id = req.params.id
+    }
+
+    RecurrModel.findAll({
+        where,
+        include: [{ model: FolderModel }]
+    }).then(r => res.send(r));
+});
 
 router.post('/recur/new', auth.isAuthenticated, (req, res, next) => {
     var day = 0;
@@ -57,6 +70,8 @@ router.post('/recur/edit/:id', auth.isAuthenticated, (req, res, next) => {
 
     let folder = null;
     if (req.body.folder != "None") folder = req.body.folder;
+    let paused = false;
+    if (req.body.paused == "on") paused = true;
 
     RecurrModel.update({
         name: req.body.name,
@@ -65,6 +80,7 @@ router.post('/recur/edit/:id', auth.isAuthenticated, (req, res, next) => {
         dueday: day,
         duedate: req.body.date,
         price: req.body.price,
+        paused: paused,
         folderId: folder
     }, {
         where: {
