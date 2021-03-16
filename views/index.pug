@@ -55,7 +55,12 @@ block content
                       i.fas.fa-plus
               tbody.tbody
                 each p in list
-                  tr(id=p.id)
+                  if p.paused 
+                    - var color = "has-background-warning"
+                  else
+                    - var color = ""
+
+                  tr(id=p.id class=color)
                     td#name.is-vcentered= p.name
                     td#price.is-vcentered= "$" + p.price.toFixed("2")
                     td#dueday.is-vcentered(data=p.duedate)= moment(p.duedate).format("MMMM Do YYYY")
