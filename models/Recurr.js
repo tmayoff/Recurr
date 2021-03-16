@@ -11,6 +11,7 @@ RecurrModel.init({
     name: Sequelize.STRING,
     normalized_name: Sequelize.STRING,
     dueday: Sequelize.INTEGER,
+    duemonth: Sequelize.INTEGER,
     duedate: Sequelize.DATEONLY,
     price: Sequelize.DOUBLE,
     cycletype: Sequelize.STRING,

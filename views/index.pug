@@ -88,7 +88,7 @@ block content
             .control
               button.button.is-info.is-light Cancel
 
-  #edit-recurr.modal
+  #edit-recurr-modal.modal
     .modal-background
     .modal-card
       header.modal-card-head
@@ -143,12 +143,12 @@ block content
           .field.is-pulled-right
             button.button.is-info Edit
   
-  #new-recurr.modal
+  #new-recurr-modal.modal
     .modal-background
     .modal-card
       header.modal-card-head
         .modal-card-title New Recurring Payment
-        button.delete(aria-label="close" onclick="toggleModal('new-recurr')")
+        button.delete(aria-label="close" onclick="toggleModal('new-recurr-modal')")
       section.modal-card-body
         form(action="/api/recur/new" method="POST")
           input.is-hidden(name="redirectUrl", value="/")

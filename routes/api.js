@@ -2,7 +2,6 @@ const express = require('express');
 const RecurrModel = require('../models/Recurr');
 const FolderModel = require('../models/Folder');
 const auth = require('../services/auth');
-const { reset } = require('nodemon');
 const router = express.Router();
 
 router.get('/recurr/:id?', auth.isAuthenticated, (req, res, next) => {
@@ -14,34 +13,29 @@ router.get('/recurr/:id?', auth.isAuthenticated, (req, res, next) => {
     RecurrModel.findAll({
         where,
         include: [{ model: FolderModel }]
-    }).then(r => res.send(r));
+    }).then(list => {
+        let now = new Date();
+        list.forEach(r => {
+            if (now > new Date(r.duedate))
+                UpdateRecurr(r);
+        });
+
+        res.send(list);
+    });
 });
 
 router.post('/recur/new', auth.isAuthenticated, (req, res, next) => {
-    var day = 0;
+    var now = new Date(req.body.date);
+    var day = now.getDate() + 1;
+    let month = now.getMonth() + 1;
     var cycle_type = req.body.cycle_type
-    switch (cycle_type) {
-        case "Yearly":
-            var now = new Date(req.body.date);
-            var start = new Date(now.getFullYear(), 0, 0);
-            var diff = (now - start) + ((start.getTimezoneOffset() - now.getTimezoneOffset()) * 60 * 1000);
-            var oneDay = 1000 * 60 * 60 * 24;
-            day = Math.floor(diff / oneDay);
-            break;
-        case 'Monthly':
-            var now = new Date(req.body.date);
-            day = now.getDate() + 1;
-            break;
-
-        default:
-            break;
-    }
 
     RecurrModel.create({
         name: req.body.name,
         normalized_name: req.body.name.toLowerCase().replace(" ", "_"),
         cycletype: cycle_type,
         dueday: day,
+        duemonth: month,
         duedate: req.body.date,
         price: req.body.price,
         userId: req.user.id
@@ -49,24 +43,10 @@ router.post('/recur/new', auth.isAuthenticated, (req, res, next) => {
 });
 
 router.post('/recur/edit/:id', auth.isAuthenticated, (req, res, next) => {
-    var day = 0;
+    var now = new Date(req.body.date);
+    var day = now.getDate() + 1;
+    let month = now.getMonth() + 1;
     var cycle_type = req.body.cycle_type
-    switch (cycle_type) {
-        case "Yearly":
-            var now = new Date(req.body.date);
-            var start = new Date(now.getFullYear(), 0, 0);
-            var diff = (now - start) + ((start.getTimezoneOffset() - now.getTimezoneOffset()) * 60 * 1000);
-            var oneDay = 1000 * 60 * 60 * 24;
-            day = Math.floor(diff / oneDay);
-            break;
-        case 'Monthly':
-            var now = new Date(req.body.date);
-            day = now.getDate() + 1;
-            break;
-
-        default:
-            break;
-    }
 
     let folder = null;
     if (req.body.folder != "None") folder = req.body.folder;
@@ -78,6 +58,7 @@ router.post('/recur/edit/:id', auth.isAuthenticated, (req, res, next) => {
         normalized_name: req.body.name.toLowerCase().replace(" ", "_"),
         cycletype: cycle_type,
         dueday: day,
+        duemonth: month,
         duedate: req.body.date,
         price: req.body.price,
         paused: paused,
@@ -117,5 +98,31 @@ router.delete('/folder/:id', auth.isAuthenticated, (req, res, next) => {
         }
     }).then(res.sendStatus(200));
 });
+
+async function UpdateRecurr(Recurr) {
+    console.log(Recurr);
+    let dueYear = new Date(Recurr.duedate).getFullYear();
+    let dueMonth = Recurr.duemonth;
+    let dueDay = Recurr.dueday;
+
+    switch (Recurr.cycletype) {
+        case "Yearly":
+            dueYear++;
+            break;
+        case "Monthly":
+            dueMonth++;
+            break;
+    }
+
+    let newDueDate = new Date(dueYear, dueMonth - 1, dueDay, 0, 0, 0, 0);
+
+    await RecurrModel.update({
+        duedate: newDueDate
+    }, {
+        where: {
+            id: Recurr.id
+        }
+    });
+}
 
 module.exports = router;

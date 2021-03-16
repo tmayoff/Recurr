@@ -1,8 +1,8 @@
 $('document').ready(() => {
-    $("#new-recurr").click(() => toggleModal("new-recurr"));
-    $(".new-recurr").click(() => toggleModal("new-recurr"));
+    $("#new-recurr-modal").children(".modal-background").click(() => toggleModal("new-recurr-modal"));
+    $(".new-recurr").click(() => toggleModal("new-recurr-modal"));
 
-    $("#edit-recurr").children(".modal-background").click(() => toggleModal("edit-recurr"));
+    $("#edit-recurr-modal").children(".modal-background").click(() => toggleModal("edit-recurr-modal"));
     $(".edit-recurr").click(e => {
         let form = $("#edit-form");
 
@@ -10,7 +10,7 @@ $('document').ready(() => {
         form.attr("action", form.attr("action") + "/" + id);
 
         $.get("api/recurr/" + id, Recurr => {
-            toggleModal("edit-recurr");
+            toggleModal("edit-recurr-modal");
 
             Recurr = Recurr[0];
             console.log(Recurr);
