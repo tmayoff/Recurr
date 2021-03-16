@@ -87,13 +87,19 @@ router.get('/recur/delete/:id', auth.isAuthenticated, (req, res, next) => {
 });
 
 router.post('/folder/new', auth.isAuthenticated, (req, res, next) => {
-
     FolderModel.create({
         userId: req.user.id,
         name: req.body.name,
         normalized_name: req.body.name.toLowerCase().replace(" ", "_"),
-    }).then(() => res.sendStatus(200))
-        .catch(() => res.sendStatus(500));
+    }).then(res.sendStatus(200));
+});
+
+router.delete('/folder/:id', auth.isAuthenticated, (req, res, next) => {
+    FolderModel.destroy({
+        where: {
+            id: req.params.id
+        }
+    }).then(res.sendStatus(200));
 });
 
 module.exports = router;

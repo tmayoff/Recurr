@@ -46,7 +46,7 @@ block content
                             
                             form#new-folder-form(action="/api/folder/new")
                                 input(hidden name="redirectUrl" value="/user")
-                            table.table.is-fullwidth.is-hoverable.is-bordered
+                            table.table.is-fullwidth.is-hoverable.is-narrow.is-striped
                                 thead.thead
                                     tr  
                                         th Name
@@ -63,4 +63,18 @@ block content
                                                     i.fas.fa-plus
                                     each folder in folders
                                         tr
-                                            td= folder.name
+                                            td.is-vcentered
+                                                .field
+                                                    .control
+                                                        input.input.is-static(value=folder.name readonly)
+                                            td.is-vcentered
+                                                .is-flex.is-justify-content-center.field.is-grouped
+                                                    //- .control
+                                                    //-     button.folder-edit-button.button.is-info.is-light(data-id=folder.id)
+                                                    //-         i.fas.fa-pencil-alt
+                                                    //- .control.is-hidden
+                                                    //-     button.folder-save-button.button.is-success(data-id=folder.id)
+                                                    //-         i.fas.fa-check
+                                                    .control
+                                                        button#folder.delete-button.folder-delete.button.is-danger(data-id=folder.id)
+                                                            i.fas.fa-times

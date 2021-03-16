@@ -38,4 +38,9 @@ block content
                         .control
                             button(type="submit").button.is-link Login
                         .control
-                            a(href="/register").button.is-link.is-light Register
+                            a(href="/authentication/register").button.is-link.is-light Register
+                //- Error messages
+                if (messages.length > 0)
+                    .notification.is-danger.m-2
+                        each m in messages  
+                            =m
